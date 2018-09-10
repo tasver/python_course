@@ -1,4 +1,5 @@
 #! /usr/bin/python3
+# -*- coding: utf-8 -*-
 import sys
 print('Input two numbers:  ')
 a = int(input())
