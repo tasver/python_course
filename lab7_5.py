@@ -7,7 +7,7 @@ def input_str() -> str:
 	return input_string
 
 def string_count_loud(string: str) -> str:
-	""" This function make crypt string"""
+	""" This function make count loud string"""
 	loud_letter = ('a', 'o', 'u', 'i', 'e', 'y')
 	string = string.lower()
 	numbers = [string.count(i) for i in loud_letter]
