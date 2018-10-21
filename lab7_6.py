@@ -7,7 +7,7 @@ def input_str() -> str:
 	return input_string
 
 def string_make_frame(string: str) -> str:
-	""" This function make  string"""
+	""" This function make frame string"""
 	count_string = len(string)+4
 	
 	return f'\n{"*"*count_string} \n* {string} * \n{"*"*count_string}'
