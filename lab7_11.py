@@ -1,7 +1,6 @@
 
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
-from decimal import Decimal
 def input_number() -> str:
 	""" This function make input of string data"""
 	input_string = str(input('Enter your string: '))
