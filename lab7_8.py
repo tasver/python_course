@@ -9,6 +9,8 @@ def input_number() -> int:
 def string_fizz_buzz(number:int) -> str:
 	""" This function make fizz or buzz string"""
 	result_string = str()
+	if number>=100:
+	    return "out of range(you enter number >= 100)"
 	if number % 3 == 0 and number % 5 == 0:
 	    return "Fizz" + "Buzz"
 	elif number % 3 == 0:
