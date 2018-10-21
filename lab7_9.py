@@ -8,7 +8,7 @@ def input_number() -> str:
 	return input_string
 
 def check_number_lucky(number:str) -> str:
-	""" This function make fizz or buzz string"""
+	""" This function make TRUE or FALSE number"""
 	result_string = str()
 
 	if ((len(number))%2 == 0):
