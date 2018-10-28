@@ -8,7 +8,7 @@ def input_str() -> str:
 	return input_string
 	
 def choose_brackets(input_string:str) -> str:
-    """ This function choose symbols """
+    """ This function choose brackets """
     open_brackets = ('(','[','{','<')
     close_brackets = (')',']','}','>')
     all_brackets = str("")
