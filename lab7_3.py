@@ -1,7 +1,5 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
-import re
-
 def input_str() -> str:
 	""" This function make input of your data"""
 	input_string = input('Enter your data: ')
