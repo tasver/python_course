@@ -36,9 +36,11 @@ def calculate_score(input_cards:str)-> str:
 
 def choose_winner(your_score:int,pc_score:int)-> int:
     """ This function choose the winner and print result"""
-    if (your_score>pc_score and your_score<= 21) or (pc_score>21 and your_score<=21):
+    if (your_score>pc_score and your_score<= 21) or \
+    (pc_score>21 and your_score<=21):
         return [your_score, pc_score, 1]
-    elif (pc_score>your_score and pc_score<= 21) or (your_score>21 and pc_score<=21):
+    elif (pc_score>your_score and pc_score<= 21) or \
+    (your_score>21 and pc_score<=21):
         return [your_score, pc_score, 2]
     elif (your_score == pc_score)and your_score<=21:
         return [your_score, pc_score, 3]
@@ -63,4 +65,5 @@ def output_str(data:list) -> None:
     else:pass
 
 choose_winner(17, 12)
-output_str(choose_winner(calculate_score(input_data('your')),calculate_score(generate_pc_cards())))
+output_str(choose_winner(calculate_score(input_data('your')),
+    calculate_score(generate_pc_cards())))
