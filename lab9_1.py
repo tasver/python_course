@@ -64,6 +64,5 @@ def output_str(data:list) -> None:
         print("Your and computer are BUSTED")
     else:pass
 
-choose_winner(17, 12)
 output_str(choose_winner(calculate_score(input_data('your')),
     calculate_score(generate_pc_cards())))
