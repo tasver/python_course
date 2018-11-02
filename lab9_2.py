@@ -19,46 +19,80 @@ def numbers_to_letters(number: float) -> str:
     400: 'чотириста', 500: 'п\'ятсот', 600: 'шістсот',700: 'сімсот',
     800: 'вісімсот', 900: 'дев\'ятсот', 0: ''}
     letters_numbers = list()
+    number_without_coins = int(number)
     number=list(str(int(number*100)))
     coins_list = number[-2:]
     del number[-2:]
     len_int_number = len(number)
+    dozens_thousend=0
+    dozens=0
+    """thousand"""
+    if len_int_number==6:
+        hundret_thousend = number_without_coins//100000
+        letters_numbers.append(numbers[int(hundret_thousend)*100])
+        number_without_coins=number_without_coins-hundret_thousend*100000
+        len_int_number=len(str(number_without_coins))
+    if len_int_number==5:
+        dozens_thousend = number_without_coins//10000
+        if dozens_thousend>1:
+            letters_numbers.append(numbers[int(dozens_thousend)*10])
+        number_without_coins=number_without_coins-dozens_thousend*10000
+        len_int_number=len(str(number_without_coins))
+    if len_int_number==4:
+        units_thousend = number_without_coins//1000
+        if dozens_thousend==1:
+            letters_numbers.append(numbers[int(dozens_thousend)*10+int(units_thousend)])
+            units_thousend=10000+units_thousend
+        else:
+            letters_numbers.append(numbers[int(units_thousend)])
+        number_without_coins=number_without_coins-units_thousend*1000
+        len_int_number=len(str(number_without_coins))
     
-    if 3<len_int_number<7:
-        less_then_thousand = number[-3:]
-        more_then_thousand = number[3:]
-    else: less_then_thousand = number
-    
-    
-    """hundrets + dozens + units + hryvna"""
-    if len(less_then_thousand)==3:
-        hundrets = less_then_thousand.pop(0)
-        """hundrets"""
-        letters_numbers.append(numbers[int(hundrets)*100])
-    if 1<len(less_then_thousand)<3:
-        dozens = less_then_thousand.pop(0)
-        units = less_then_thousand.pop(0)
-        
-        """dozens+units"""
-        if int(dozens)>1:
-            letters_numbers.append(numbers[int(dozens)*10])
-            letters_numbers.append(numbers[int(units)])
-        elif 0<int(dozens)<=1:
-            letters_numbers.append(numbers[int(dozens)*10+int(units)])
-        elif int(dozens)<1:
-            letters_numbers.append(numbers[int(units)])
-        else:pass
-        """units+hryvna"""
-        if int(units)==1:
+        if int(units_thousend)==1:
             if "один" in letters_numbers:
                 letters_numbers[letters_numbers.index("один")] = "одна"
-            letters_numbers.append("гривня")
-        elif 1<int(units)<5:
+                letters_numbers.append("тисяча")
+        elif 1<int(units_thousend)<5:
             if "два" in letters_numbers:
                 letters_numbers[letters_numbers.index("два")] = "дві"
-            letters_numbers.append("гривні")
-        else: 
-            letters_numbers.append("гривень")
+            letters_numbers.append("тисячі")
+        elif int(units_thousend)>5:
+            letters_numbers.append("тисяч")
+        else: letters_numbers.append("тисяч")
+
+    """units+hryvna"""  
+    if len_int_number==3:
+        hundret = number_without_coins//100
+        letters_numbers.append(numbers[int(hundret)*100])
+        number_without_coins=number_without_coins-hundret*100
+        len_int_number=len(str(number_without_coins))
+    if len_int_number==2:
+        dozens = number_without_coins//10
+        if dozens >2:
+            letters_numbers.append(numbers[int(dozens)*10])
+        number_without_coins=number_without_coins-dozens*10
+        len_int_number=len(str(number_without_coins))
+    if len_int_number==1:
+        units= number_without_coins//1
+        if dozens==1:
+            letters_numbers.append(numbers[int(dozens)*10+int(units)])
+            units=10+units
+        else:
+            letters_numbers.append(numbers[int(units)])
+        number_without_coins=number_without_coins-units
+        len_int_number=len(str(number_without_coins))
+    
+    if int(units)==1:
+        if "один" in letters_numbers:
+            letters_numbers[letters_numbers.index("один")] = "одна"
+            letters_numbers.append("гривня")
+    elif 1<int(units)<5:
+        if "два" in letters_numbers:
+            letters_numbers[letters_numbers.index("два")] = "дві"
+        letters_numbers.append("гривні")
+    else: 
+        letters_numbers.append("гривень") 
+        
     """coins"""
     coins_dozens = coins_list.pop(0)
     coins_units = coins_list.pop(0)
@@ -72,46 +106,11 @@ def numbers_to_letters(number: float) -> str:
         letters_numbers.append("копійка")
     else: 
         letters_numbers.append("копійок")
-    return letters_numbers
+    letters_numbers=" ".join(map(str,letters_numbers)).capitalize()
+    return str(letters_numbers)
     
 def output_str(string:str) -> str:
     """ This function print result"""
     print(string)
     
 output_str(numbers_to_letters(input_data()))
-
-"""lst = list(str(int(amount * 100)))
-    rate = 5
-    index = -(rate + 2)
-    while lst[index] == '1' and index != -1:
-        lst[index] += lst[index + 1]
-        lst[index + 1] = '0'
-        index += 3
-    while len(lst) > rate:
-        poped = lst.pop(0)
-        sample.append(numbers[int(poped) * 10 ** (len(lst) - len(poped) - rate + 1)])
-    if "один" in sample:
-        sample[sample.index("один")] = "одна"
-        sample.append("тисяча")
-    elif "два" in sample:
-        sample[sample.index("два")] = "дві"
-        sample.append("тисячі")
-    else: sample.append("тисяч")
-    rate -= 3
-    while len(lst) > rate:
-        poped = lst.pop(0)
-        sample.append(numbers[int(poped) * 10 ** (len(lst) - len(poped) - rate + 1)])
-    if "один" in sample:
-        sample[sample.index("один")] = "одна"
-        sample.append("гривня")
-    elif "два" in sample:
-        sample[sample.index("два")] = "дві"
-        sample.append("гривні")
-    else: sample.append("гривень")
-    coins = int(''.join(lst))
-    sample.append(str(coins))
-    if coins > 10 and coins < 20: sample.append("копійок")
-    elif coins % 10 > 1 and coins % 10 < 5: sample.append("копійки")
-    elif coins % 10 == 1: sample.append("копійка")
-    else: sample.append("копійок")
-    return ' '.join(' '.join(sample).split()).capitalize()"""
