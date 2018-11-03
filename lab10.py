@@ -10,7 +10,7 @@ def input_data() -> list:
     return input_data
 
 def data_to_bytes(input_data:str):
-
+    """Converts data into bytes"""
     input_data_bin=input_data.encode('utf-8')
     input_data_binary=0
     string_binary_data=str()
@@ -19,7 +19,8 @@ def data_to_bytes(input_data:str):
         string_binary_data+=str(input_data_binary)+" "
     return string_binary_data
 
-def file_to_byte(path:str) -> list:    
+def file_to_byte(path:str) -> list:
+    """Converts from file into bytes"""    
     with open(path,'rb') as image:
         arr = []
         byte = image.read(1)
@@ -66,26 +67,31 @@ def crypto_file(string_binary_data:str)->list:
     return main_arr
 
 def byte_to_file(iterable, n, fillvalue=None):
+    """return bytes from binary"""
     # byte_to_file('ABCDEFG', 3, 'x') --> ABC DEF Gxx
     args = [iter(iterable)] * n
     return zip_longest(fillvalue=fillvalue, *args)
  
-def crypto_file_into_bytes(main_arr:list)->list:
-    arr = []
+def decimal_into_binary(main_arr:list)->list:
+    """Change decimal values pixels to bytes"""
+    arr = []    
     for x in main_arr:
         arr.extend('{:08b}'.format(x))
     return arr
 
 def write_file(arr:list) -> None:
+    """Write bytes into file"""
     with open('output.bmp', 'wb') as f:
         f.write(bytearray(int(''.join(x),2) for x in byte_to_file(arr, 8)))
     return print("Correct writing file")
 
 def decrypt(crypt:list, nocrypt:list)->str:
-    crypt=crypt[100:500]
-    nocrypt=nocrypt[100:500]
+    """Decrypt your crypted file for compare with non-crypted"""
+    crypt=crypt[100:1550]
+    nocrypt=nocrypt[100:1550]
     text = []
     sub_iter = map(sub, crypt, nocrypt)
+    sub_iter = map(abs,sub_iter)
     sub_iter = list(filter(None, sub_iter))
     for i in sub_iter:
         i = i+96
@@ -94,5 +100,5 @@ def decrypt(crypt:list, nocrypt:list)->str:
 
     return print("Your text is - '{}'".format(text))
 
-write_file(crypto_file_into_bytes(crypto_file(data_to_bytes(input_data()))))
+write_file(decimal_into_binary(crypto_file(data_to_bytes(input_data()))))
 decrypt(file_to_byte("output.BMP"),(file_to_byte("RAY.BMP")))
