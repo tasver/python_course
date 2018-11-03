@@ -17,8 +17,6 @@ def data_to_bytes(input_data:str):
     for x in input_data_bin:
         input_data_binary=x-96
         string_binary_data+=str(input_data_binary)+" "
-    print(string_binary_data)
-    print(type(string_binary_data))
     return string_binary_data
 
 def file_to_byte(path:str) -> list:    
@@ -81,6 +79,7 @@ def crypto_file_into_bytes(main_arr:list)->list:
 def write_file(arr:list) -> None:
     with open('output.bmp', 'wb') as f:
         f.write(bytearray(int(''.join(x),2) for x in byte_to_file(arr, 8)))
+    return print("Correct writing file")
 
 def decrypt(crypt:list, nocrypt:list)->str:
     crypt=crypt[100:500]
@@ -92,9 +91,8 @@ def decrypt(crypt:list, nocrypt:list)->str:
         i = i+96
         text.append(chr(i))
     text = ''.join(text)
-    print(text)
 
     return print("Your text is - '{}'".format(text))
 
-decrypt(crypto_file(data_to_bytes(input_data())),(file_to_byte("RAY.BMP")))
 write_file(crypto_file_into_bytes(crypto_file(data_to_bytes(input_data()))))
+decrypt(file_to_byte("output.BMP"),(file_to_byte("RAY.BMP")))
