@@ -9,12 +9,12 @@ def input_data() -> str:
     	print("Too long number")
     return input_data
 def input_count() -> str:
-
+    """ This function make input count of numbers"""
 	input_count = (input('Enter count: '))
 	return input_count
 
 def reverse_and_multiple(input_number:str,input_count:str)->str:
-
+    """ This function reverse and multiple of numbers"""
 	while int(input_count)>0:		
 		reverse_number = input_number[3:] + input_number[0:3]
 		multiple_number =  int(reverse_number)*int(input_number)
