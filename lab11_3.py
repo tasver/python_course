@@ -86,17 +86,14 @@ def bot_check(board:list, player_token:str)->None:
             if str(board[i[1]]) not in "XO":
                 board[i[1]]=player_token
                 valid = True
-                print("1")
                 break
             if str(board[i[0]]) not in "XO":
                 board[i[0]]=player_token
                 valid = True
-                print("0")
                 break
             if str(board[i[2]]) not in "XO":
                 board[i[2]]=player_token
                 valid = True
-                print("2")
                 break                
                     
 def check_win(board:list)->bool:
@@ -128,8 +125,7 @@ def main(board:list)->None:
                 win = True
                 break
         if counter == 9:
-            print( "DROW!")
+            print( "DRAW!")
             break
     draw_board(board)
 main(board)
-
